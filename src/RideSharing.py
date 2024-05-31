@@ -1,9 +1,9 @@
 from typing import Optional
 
-from ride_sharing.constants import BASE_FARE, PER_KM_FARE, PER_MIN_FARE, SERVICE_TAX
-from ride_sharing.enums import Commands
-from ride_sharing.helpers import get_euclidean_distance, is_command_valid
-from ride_sharing.ptypes import Point, Driver, RideInfo, Rider
+from src.constants import BASE_FARE, PER_KM_FARE, PER_MIN_FARE, SERVICE_TAX
+from src.enums import Commands
+from src.helpers import get_euclidean_distance, is_command_valid
+from src.ptypes import Point, Driver, RideInfo, Rider
 
 
 class RideSharing:
@@ -34,12 +34,14 @@ class RideSharing:
                 return rider
 
     def __get_rider_driver_matches(self,
-                                   rider_point: Point, limit: int = None
+                                   rider_point: Point,
+                                   max_distance: float = 5, limit: int = None,
                                    ) -> list:
         """Finds the nearest driver to the rider
 
         Args:
             rider_point (Point): The point of riders
+            max_distance (float, optional): Maximum distance between rider and drivers. Defaults to 5.
             limit (int, optional): Number of results to return. Defaults to None.
 
         Returns:
@@ -59,6 +61,9 @@ class RideSharing:
 
         # sort according to distance between rider and drivers
         distance_between_rider.sort(key=lambda x: x[1])
+
+        # filter the closest driver in the range of max_distance
+        distance_between_rider = [x for x in distance_between_rider if x[1] <= max_distance]
 
         return distance_between_rider[:limit] if limit else distance_between_rider
 
@@ -140,7 +145,7 @@ class RideSharing:
             ride_id (str): Id of  the ride to generate bill for
 
         Returns:
-            str: Generated bill data if generated successfully
+            str: Generated bill sample_inputs if generated successfully
         """
         for ride in self.__rides:
             if ride.id == ride_id:

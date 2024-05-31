@@ -1,3 +1,9 @@
+# Ride Sharing
+
+## Description
+
+This package helps in creating, add and getting rides for users.
+
 # Prerequisites
 
 * Python 3.12

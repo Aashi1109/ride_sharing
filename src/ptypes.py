@@ -1,4 +1,4 @@
-from typing import Optional, Union
+from typing import Optional
 
 
 class Point:
@@ -17,13 +17,6 @@ class RideInfo:
         self.driver_id = driver_id
         self.time_taken = time_taken
         self.destination = destination
-
-
-class Bill:
-    def __init__(self, id: str, ride_id: str, fare: Optional[Union[float, None]]):
-        self.id = id
-        self.ride_id = ride_id
-        self.fare = fare
 
 
 class User:

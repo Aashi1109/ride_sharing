@@ -1,5 +1,5 @@
-from ride_sharing.enums import Commands
-from ride_sharing.ptypes import Point
+from src.enums import Commands
+from src.ptypes import Point
 
 
 def is_command_valid(command: str) -> bool:
